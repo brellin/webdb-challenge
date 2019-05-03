@@ -13,10 +13,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const { body } = req
-    if (body.description && body.complete !== null) {
+    if (body.description && body.pj_id && body.completed !== null) {
         try {
             const post = await actions.insert(body)
-            const get = await actions.find()
+            const get = await actions.get()
             post ?
                 res.status(200).json(get)
                 :
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
         }
     } else {
         res.status(400).json({
-            error: 'You must include a name and specify whether the action was completed (boolean) or not.'
+            error: 'You must include a description (description, string), project id (pj_id, number), and specify whether the action was completed (completed, boolean) or not.'
         })
     }
 })

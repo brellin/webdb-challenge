@@ -13,10 +13,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const { body } = req
-    if (body.name && body.complete !== null) {
+    if (body.name && body.completed !== null) {
         try {
             const post = await projects.insert(body)
-            const get = await projects.find()
+            const get = await projects.get()
             post ?
                 res.status(200).json(get)
                 :
